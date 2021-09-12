@@ -3,13 +3,18 @@ def buildApp() {
     echo "building version ${NEW_VERSION}"
     sh './gradlew -v'
 
-    sh 'docker build -f Dockerfile -t fleetserv .'
+    sh """
+        docker build -f Dockerfile -t fleetserv .
+    """
     echo 'dockerfile built'
 }
 
 def test() {
     sh './gradlew clean'
     echo 'step 2 complete'
+    sh """
+        docker run -rm fleetserv
+    """
 }
 
 def feTest() {
