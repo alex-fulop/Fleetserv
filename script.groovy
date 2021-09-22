@@ -3,18 +3,18 @@ def buildApp() {
     echo "building version ${NEW_VERSION}"
     sh './gradlew -v'
 
-    sh """
-        docker build -f Dockerfile -t fleetserv .
-    """
+//    sh """
+//        docker build -f Dockerfile -t fleetserv .
+//    """
     echo 'dockerfile built'
 }
 
 def test() {
     sh './gradlew clean'
     echo 'step 2 complete'
-    sh """
-        docker run -rm fleetserv
-    """
+//    sh """
+//        docker run -rm fleetserv
+//    """
 }
 
 def feTest() {
@@ -33,7 +33,7 @@ def e2eTests() {
 
 def publish() {
     echo 'running docker instance'
-    sh 'docker run --name fleetserv -p 5556:5556 fleetserv -d'
+//    sh 'docker run --name fleetserv -p 5556:5556 fleetserv -d'
 
     withCredentials([
             usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')
