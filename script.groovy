@@ -1,48 +1,30 @@
-def buildApp() {
-    echo 'building the application...'
-    echo "building version ${NEW_VERSION}"
-    sh './gradlew -v'
-
-//    sh """
-//        docker build -f Dockerfile -t fleetserv .
-//    """
-    echo 'dockerfile built'
+def checkout() {
+    git branch: 'master', url: 'https://github.com/devops4solutions/CI-CD-using-Docker.git'
 }
 
-def test() {
-    sh './gradlew clean'
-    echo 'step 2 complete'
-//    sh """
-//        docker run -rm fleetserv
-//    """
+def build() {
+    sh 'gradle assemble'
 }
 
-def feTest() {
-    sh './gradlew build'
-    echo 'steps 3 complete'
+def dockerBuildAndTag() {
+    sh 'docker build -t fleetserv:latest .'
+    sh 'docker tag fleetserv fulop/fleetserv:latest'
+    //sh 'docker tag fleetserv fulop/fleetserv:$BUILD_NUMBER'
 }
 
-def feCodeAnalysis(){
-    sh './gradlew test'
-    echo 'steps 4 complete'
-}
-
-def e2eTests() {
-    echo 'steps 5 complete'
-}
-
-def publish() {
-    echo 'running docker instance'
-//    sh 'docker run --name fleetserv -p 5556:5556 fleetserv -d'
-
-    withCredentials([
-            usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')
-    ]) {
-        echo "some script ${USER} ${PASS}"
+def publishDockerHub(){
+    withDockerRegistry([ credentialsId: "docker-credentials", url: "" ]) {
+        sh  'docker push fulop/fleetserv:latest'
+        //  sh  'docker push fulop/fleetserv:$BUILD_NUMBER'
     }
+}
 
-    echo 'steps 6 complete'
-    echo "deploying with ${SERVER_CREDENTIALS}"
+def runContainerOnAgent() {
+    sh "docker run -d -p 5556:5556 fulop/fleetserv"
+}
+
+def runContainerOnRemoteHosts() {
+//    sh "docker -H ssh://jenkins@172.31.28.25 run -d -p 8003:8080 nikhilnidhi/samplewebapp"
 }
 
 return this

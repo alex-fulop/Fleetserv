@@ -32,12 +32,12 @@ pipeline {
         stage("Checkout") {
             steps {
                 script {
-                    gv.buildApp()
+                    gv.checkout()
                 }
             }
         }
 
-        stage("Unit & Integration Tests") {
+        stage("Build") {
             when {
                 expression {
                     BRANCH_NAME == 'GAMMA/.*' || BRANCH_NAME == 'OMEGA/.*'
@@ -46,28 +46,28 @@ pipeline {
             }
             steps {
                 script {
-                    gv.test()
+                    gv.build()
                 }
             }
         }
 
-        stage("Frontend Unit Tests") {
+        stage("Docker Build and Tag") {
             steps {
                 script{
-                    gv.feTest()
+                    gv.dockerBuildAndTag()
                 }
             }
         }
 
-        stage("Frontend Static Code Analysis") {
+        stage("Publish Image to Docker Hub") {
             steps {
                 script {
-                    gv.feCodeAnalysis()
+                    gv.publishDockerHub()
                 }
             }
         }
 
-        stage("End 2 End Tests") {
+        stage("Run Docker container on Jenkins Agent") {
             when {
                 expression {
                     BRANCH_NAME == 'GAMMA/.*' || CODE_CHANGES == true
@@ -75,15 +75,15 @@ pipeline {
             }
             steps {
                 script {
-                    gv.e2eTests()
+                    gv.runContainerOnAgent()
                 }
             }
         }
 
-        stage("Publish Artifact to Nexus") {
+        stage("Run Docker container on remote hosts") {
             steps {
                 script{
-                    gv.publish()
+                    gv.runContainerOnRemoteHosts()
                 }
             }
         }
