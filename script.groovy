@@ -34,7 +34,7 @@ def runContainerOnAgent() {
 
 def runContainerOnRemoteHosts() {
 //    sh "docker -H ssh://jenkins@172.31.28.25 run -d -p 8003:8080 nikhilnidhi/samplewebapp"
-    emailext(attachLog: true, body: 'A new build just finnished, check out the logs.', subject: 'Pipeline Report', to: 'fulopalexbusiness@gmail.com' )
+    emailext(attachLog: true, body: 'A new build just finished, check out the logs.', subject: 'Pipeline Report', to: 'fulopalexbusiness@gmail.com' )
 }
 
 return this
