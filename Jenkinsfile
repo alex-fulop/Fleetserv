@@ -1,4 +1,3 @@
-CODE_CHANGES = true
 def gv
 
 pipeline {
@@ -38,12 +37,6 @@ pipeline {
         }
 
         stage("Build") {
-            when {
-                expression {
-//                    BRANCH_NAME == 'GAMMA/.*' || BRANCH_NAME == 'OMEGA/.*'
-                    params.EXECUTE_TESTS == true
-                }
-            }
             steps {
                 script {
                     gv.build()
@@ -68,11 +61,6 @@ pipeline {
         }
 
         stage("Run Docker container on Jenkins Agent") {
-            when {
-                expression {
-//                    BRANCH_NAME == 'GAMMA/.*' || CODE_CHANGES == true
-                }
-            }
             steps {
                 script {
                     gv.runContainerOnAgent()
