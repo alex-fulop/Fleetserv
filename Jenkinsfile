@@ -13,6 +13,7 @@ pipeline {
 
     tools {
         gradle 'fleetserv-be-buildtool'
+        docker 'fleetserv-cicd-docker'
     }
 
     environment {
