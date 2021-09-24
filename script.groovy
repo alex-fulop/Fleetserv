@@ -29,7 +29,7 @@ def runContainerOnAgent() {
             /* Push the container to the custom Registry */
             customImage.push()
         }
-    sh "docker run -d -p 5556:5556 fulop/fleetserv"
+//    sh "docker run -d -p 5556:5556 fulop/fleetserv"
 }
 
 def runContainerOnRemoteHosts() {
