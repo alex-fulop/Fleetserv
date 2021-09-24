@@ -9,5 +9,5 @@ public class ApplicationController {
 	@GetMapping("/index")
 	private String goHome() {
 		return "index";
-	}
+	} asdasdasdasdasd
 }
