@@ -3,7 +3,7 @@ def checkout() {
 }
 
 def build() {
-    sh 'gradle assemble'
+    sh 'gradle build'
 }
 
 def dockerBuildAndTag() {
