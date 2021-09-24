@@ -20,15 +20,15 @@ def publishDockerHub(){
 }
 
 def runContainerOnAgent() {
-        checkout scm
-
-        docker.withRegistry('https://hub.docker.com/', 'dockerhub-credentials') {
-
-            def customImage = docker.build("fulop/fleetserv")
-
-            /* Push the container to the custom Registry */
-            customImage.push()
-        }
+//        checkout scm
+//
+//        docker.withRegistry('https://hub.docker.com/', 'dockerhub-credentials') {
+//
+//            def customImage = docker.build("fulop/fleetserv")
+//
+//            /* Push the container to the custom Registry */
+//            customImage.push()
+//        }
 //    sh "docker run -d -p 5556:5556 fulop/fleetserv"
 }
 
