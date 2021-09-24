@@ -1,5 +1,5 @@
 def checkout() {
-    git branch: 'master', url: 'https://github.com/devops4solutions/CI-CD-using-Docker.git'
+    git branch: 'master', url: 'https://github.com/alex-fulop/Fleetserv.git'
 }
 
 def build() {
@@ -7,16 +7,16 @@ def build() {
 }
 
 def dockerBuildAndTag() {
-    sh 'docker build -t fleetserv:latest .'
-    sh 'docker tag fleetserv fulop/fleetserv:latest'
+//    sh 'docker build -t fleetserv:latest .'
+//    sh 'docker tag fleetserv fulop/fleetserv:latest'
     //sh 'docker tag fleetserv fulop/fleetserv:$BUILD_NUMBER'
 }
 
 def publishDockerHub(){
-    withDockerRegistry([ credentialsId: "docker-credentials", url: "" ]) {
-        sh  'docker push fulop/fleetserv:latest'
-        //  sh  'docker push fulop/fleetserv:$BUILD_NUMBER'
-    }
+//    withDockerRegistry([ credentialsId: "docker-credentials", url: "" ]) {
+//        sh  'docker push fulop/fleetserv:latest'
+//        //  sh  'docker push fulop/fleetserv:$BUILD_NUMBER'
+//    }
 }
 
 def runContainerOnAgent() {
